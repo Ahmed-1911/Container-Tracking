@@ -25,7 +25,6 @@ class SplashState extends ConsumerState<Splash> {
           final locProvider = ref.read(localProvider.notifier);
           await locProvider.fetchLocale();
           SettingsSession.instance().loadLanguage();
-          if (context.mounted) {}
         });
         Future.delayed(
           const Duration(seconds: 2),

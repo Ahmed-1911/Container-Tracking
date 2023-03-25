@@ -26,7 +26,10 @@ class CompanyItem extends StatelessWidget {
       },
       child: Container(
         height: 47.h,
-        padding: EdgeInsets.symmetric(horizontal: 15.w,vertical: 5.h,),
+        padding: EdgeInsets.symmetric(
+          horizontal: 15.w,
+          vertical: 5.h,
+        ),
         alignment: Alignment.center,
         margin: EdgeInsets.symmetric(
           vertical: 5.h,

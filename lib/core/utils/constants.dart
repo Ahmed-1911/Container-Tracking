@@ -9,6 +9,7 @@ class Constants {
   static const portAccess = "portAccess";
   static const containerNumber = "containerNumber";
   static const alarmDescription = "alarmDescription";
+  static const appId = '4';
 
   static List<Company> companiesList = [
     Company(

@@ -1,6 +1,6 @@
+import 'package:container_tracking/core/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:container_tracking/core/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/singleton/settings_session.dart';

@@ -68,8 +68,15 @@ class NotificationService {
         .show(id, title, body, platformChannelSpecifics, payload: payload);
   }
 
-  Future<void> scheduleNotifications({context, id, companyName, portAccess, containerNumber, required DateTime time,desc}) async {
-    const notificationDetails =  NotificationDetails(
+  Future<void> scheduleNotifications(
+      {context,
+      id,
+      companyName,
+      portAccess,
+      containerNumber,
+      required DateTime time,
+      desc}) async {
+    const notificationDetails = NotificationDetails(
       android: AndroidNotificationDetails(
         'your channel id',
         'your channel name',
@@ -78,9 +85,8 @@ class NotificationService {
     );
     try {
       ///set alarm before 10 days from date
-      if( time.subtract(const Duration(days: 10)).isAfter(DateTime.now())) {
-        await flutterLocalNotificationsPlugin
-            .zonedSchedule(
+      if (time.subtract(const Duration(days: 10)).isAfter(DateTime.now())) {
+        await flutterLocalNotificationsPlugin.zonedSchedule(
           id,
           " بعد 10 ايام لديك شحنة فى ميناء $portAccess",
           "$companyName  /  $containerNumber",
@@ -88,12 +94,11 @@ class NotificationService {
           notificationDetails,
           androidAllowWhileIdle: true,
           uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
+              UILocalNotificationDateInterpretation.absoluteTime,
         );
       }
-      if( time.subtract(const Duration(days: 5)).isAfter(DateTime.now())) {
-        await flutterLocalNotificationsPlugin
-            .zonedSchedule(
+      if (time.subtract(const Duration(days: 5)).isAfter(DateTime.now())) {
+        await flutterLocalNotificationsPlugin.zonedSchedule(
           id,
           " بعد 5 ايام لديك شحنة فى ميناء $portAccess",
           "$companyName  /  $containerNumber",
@@ -101,12 +106,11 @@ class NotificationService {
           notificationDetails,
           androidAllowWhileIdle: true,
           uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
+              UILocalNotificationDateInterpretation.absoluteTime,
         );
       }
-      if( time.subtract(const Duration(days: 3)).isAfter(DateTime.now())) {
-        await flutterLocalNotificationsPlugin
-            .zonedSchedule(
+      if (time.subtract(const Duration(days: 3)).isAfter(DateTime.now())) {
+        await flutterLocalNotificationsPlugin.zonedSchedule(
           id,
           " بعد 3 ايام لديك شحنة فى ميناء $portAccess",
           "$companyName  /  $containerNumber",
@@ -114,34 +118,32 @@ class NotificationService {
           notificationDetails,
           androidAllowWhileIdle: true,
           uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
+              UILocalNotificationDateInterpretation.absoluteTime,
         );
       }
       await flutterLocalNotificationsPlugin
           .zonedSchedule(
               id,
-          " اليوم لديك شحنة فى ميناء $portAccess",
-          "$companyName  /  $containerNumber",
-          tz.TZDateTime.from(time, tz.local),
+              " اليوم لديك شحنة فى ميناء $portAccess",
+              "$companyName  /  $containerNumber",
+              tz.TZDateTime.from(time, tz.local),
               notificationDetails,
               androidAllowWhileIdle: true,
               uiLocalNotificationDateInterpretation:
                   UILocalNotificationDateInterpretation.absoluteTime)
-          .then(
-            (value)async {
-              var prefs = await SharedPreferences.getInstance();
-              await prefs.setString(Constants.alarmDate, time.toString());
-              await prefs.setString(Constants.portAccess, portAccess);
-              await prefs.setString(Constants.companyName, companyName);
-              await prefs.setString(Constants.containerNumber, containerNumber);
-              await prefs.setString(Constants.alarmDescription, desc ??'');
+          .then((value) async {
+        var prefs = await SharedPreferences.getInstance();
+        await prefs.setString(Constants.alarmDate, time.toString());
+        await prefs.setString(Constants.portAccess, portAccess);
+        await prefs.setString(Constants.companyName, companyName);
+        await prefs.setString(Constants.containerNumber, containerNumber);
+        await prefs.setString(Constants.alarmDescription, desc ?? '');
 
-              ViewFunctions.showCustomSnackBar(
-                context: context,
-                text: 'تم اضافة تذكير بوصول الشحنة',
-              );
-            }
-          );
+        ViewFunctions.showCustomSnackBar(
+          context: context,
+          text: 'تم اضافة تذكير بوصول الشحنة',
+        );
+      });
     } catch (e) {
       ViewFunctions.showCustomSnackBar(
         context: context,

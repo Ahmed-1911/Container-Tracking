@@ -1,6 +1,6 @@
+import 'package:container_tracking/core/utils/colors_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:container_tracking/core/utils/colors_utils.dart';
 
 class CustomRoundedButton extends StatelessWidget {
   String text;

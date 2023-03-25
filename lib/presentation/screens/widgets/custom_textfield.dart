@@ -1,7 +1,7 @@
+import 'package:container_tracking/core/utils/colors_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:container_tracking/core/utils/colors_utils.dart';
 
 class CustomTextField extends StatefulWidget {
   String? label;
@@ -111,76 +111,75 @@ class CustomTextFieldState extends State<CustomTextField> {
                     ? TextInputType.number
                     : TextInputType.text,
         decoration: InputDecoration(
-          hintText: widget.hintText,
-          hintStyle: widget.hintStyle,
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: 16.w,
-            vertical: 10.h,
-          ),
-          enabledBorder: (!widget.hasBorder)
-              ? InputBorder.none
-              : OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(widget.radius.r),
-                  borderSide: const BorderSide(
-                    color: ColorsUtils.kSecondaryColor,
+            hintText: widget.hintText,
+            hintStyle: widget.hintStyle,
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 16.w,
+              vertical: 10.h,
+            ),
+            enabledBorder: (!widget.hasBorder)
+                ? InputBorder.none
+                : OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(widget.radius.r),
+                    borderSide: const BorderSide(
+                      color: ColorsUtils.kSecondaryColor,
+                    ),
                   ),
-                ),
-          disabledBorder: (!widget.hasBorder)
-              ? InputBorder.none
-              : OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(widget.radius.r),
-                  borderSide: const BorderSide(
-                    color: ColorsUtils.kSecondaryColor,
+            disabledBorder: (!widget.hasBorder)
+                ? InputBorder.none
+                : OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(widget.radius.r),
+                    borderSide: const BorderSide(
+                      color: ColorsUtils.kSecondaryColor,
+                    ),
                   ),
-                ),
-          border: (!widget.hasBorder)
-              ? InputBorder.none
-              : OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(widget.radius.r),
-                  borderSide: const BorderSide(
-                    color: ColorsUtils.kSecondaryColor,
+            border: (!widget.hasBorder)
+                ? InputBorder.none
+                : OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(widget.radius.r),
+                    borderSide: const BorderSide(
+                      color: ColorsUtils.kSecondaryColor,
+                    ),
                   ),
-                ),
-          focusedBorder: (!widget.hasBorder)
-              ? InputBorder.none
-              : OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(widget.radius.r),
-                  borderSide: const BorderSide(
-                    color: ColorsUtils.kSecondaryColor,
-                    width: 2,
+            focusedBorder: (!widget.hasBorder)
+                ? InputBorder.none
+                : OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(widget.radius.r),
+                    borderSide: const BorderSide(
+                      color: ColorsUtils.kSecondaryColor,
+                      width: 2,
+                    ),
                   ),
-                ),
-          labelText: widget.label,
-          labelStyle: TextStyle(
-            color: ColorsUtils.blackColor.withOpacity(0.7),
-            fontSize: 14.spMin,
-            fontWeight: FontWeight.w600,
-          ),
-          suffixIcon: (widget.hasPassword)
-              ? InkWell(
-                  onTap: () {
-                    showPassword = !showPassword;
-                    setState(() {});
-                  },
-                  child: (!showPassword)
-                      ? Icon(
-                          Icons.visibility_outlined,
-                          color: ColorsUtils.blackColor,
-                          size: 18.w,
-                        )
-                      : Icon(
-                          Icons.visibility_off_outlined,
-                          color: ColorsUtils.blackColor,
-                          size: 18.w,
-                        ),
-                )
-              : widget.suffixIcon,
-          fillColor: (widget.filledColor == null)
-              ? Colors.transparent
-              : widget.filledColor,
-          filled: true,
-          prefixIcon: widget.icon
-        ),
+            labelText: widget.label,
+            labelStyle: TextStyle(
+              color: ColorsUtils.blackColor.withOpacity(0.7),
+              fontSize: 14.spMin,
+              fontWeight: FontWeight.w600,
+            ),
+            suffixIcon: (widget.hasPassword)
+                ? InkWell(
+                    onTap: () {
+                      showPassword = !showPassword;
+                      setState(() {});
+                    },
+                    child: (!showPassword)
+                        ? Icon(
+                            Icons.visibility_outlined,
+                            color: ColorsUtils.blackColor,
+                            size: 18.w,
+                          )
+                        : Icon(
+                            Icons.visibility_off_outlined,
+                            color: ColorsUtils.blackColor,
+                            size: 18.w,
+                          ),
+                  )
+                : widget.suffixIcon,
+            fillColor: (widget.filledColor == null)
+                ? Colors.transparent
+                : widget.filledColor,
+            filled: true,
+            prefixIcon: widget.icon),
       ),
     );
   }

@@ -1,9 +1,10 @@
+import 'package:container_tracking/core/helpers/routes.dart';
+import 'package:container_tracking/core/utils/colors_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:container_tracking/core/helpers/routes.dart';
-import 'package:container_tracking/core/utils/colors_utils.dart';
+
 import '../../generated/l10n.dart';
 import '../../presentation/screens/widgets/custom_loading.dart';
 import '../../presentation/viewModel/locale/localizationProvider.dart';
