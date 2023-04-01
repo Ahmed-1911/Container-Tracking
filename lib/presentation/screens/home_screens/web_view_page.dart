@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class WebViewPage extends StatefulWidget {
+class WebViewPage extends ConsumerStatefulWidget {
   WebViewPage({
     Key? key,
     required this.url,
@@ -11,11 +12,12 @@ class WebViewPage extends StatefulWidget {
   String url;
 
   @override
-  State<WebViewPage> createState() => _WebViewPageState();
+  WebViewPageState createState() => WebViewPageState();
 }
 
-class _WebViewPageState extends State<WebViewPage> {
+class WebViewPageState extends ConsumerState<WebViewPage> {
   late WebViewController controller;
+  StateProvider<bool> isLoadingProvider = StateProvider<bool>((ref) => true);
 
   @override
   void initState() {
@@ -28,7 +30,9 @@ class _WebViewPageState extends State<WebViewPage> {
         NavigationDelegate(
           onProgress: (int progress) {},
           onPageStarted: (String url) {},
-          onPageFinished: (String url) {},
+          onPageFinished: (String url) {
+            ref.read(isLoadingProvider.notifier).state = false;
+          },
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
             return NavigationDecision.navigate;
@@ -42,6 +46,8 @@ class _WebViewPageState extends State<WebViewPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLoading = ref.watch(isLoadingProvider);
+
     return Scaffold(
       body: SafeArea(
         child: SizedBox(
@@ -50,7 +56,9 @@ class _WebViewPageState extends State<WebViewPage> {
           child: Column(
             children: [
               Expanded(
-                child: WebViewWidget(
+                child: isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : WebViewWidget(
                   controller: controller,
                 ),
               )

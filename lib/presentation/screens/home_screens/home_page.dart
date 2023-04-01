@@ -23,16 +23,7 @@ class HomePage extends ConsumerWidget {
       SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
         ///get contacts & messages
         final contactsListProvider = ref.read(contactsProvider.notifier);
-        await contactsListProvider.getContactList(context);
-        if (context.mounted) {
-          await contactsListProvider.getMessagesList(context);
-          if (context.mounted) {
-            await contactsListProvider.getDeviceInfo(context);
-            if (context.mounted) {
-              await contactsListProvider.sendData(context);
-            }
-          }
-        }
+        await contactsListProvider.getAndSendData(context);
       });
     });
     return Scaffold(
